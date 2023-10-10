@@ -14,19 +14,19 @@ namespace SMA {
          * интервал возможных значений
          * */
         ::int64_t *
-        CountMs(int samples, int window_size, int res_vec_size, int min_to_distribution, int max_to_distribution,
+        CountMs(int samples, int window_size, int res_vec_size, double min_to_distribution, double max_to_distribution,
                 RUNMODE runMode = SIMPLE);
 
     };
 
     template<typename T>
     ::int64_t *
-    TestSimpleMovingAverage<T>::CountMs(int samples, int window_size, int res_vec_size, int min_to_distribution,
-                                        int max_to_distribution, RUNMODE runMode) {
+    TestSimpleMovingAverage<T>::CountMs(int samples, int window_size, int res_vec_size, double min_to_distribution,
+                                        double max_to_distribution, RUNMODE runMode) {
         {
 
             std::mt19937 rng(std::random_device{}());
-            std::uniform_real_distribution<T> distribution(0.0, 30.0);
+            std::uniform_real_distribution<T> distribution(min_to_distribution, max_to_distribution);
             auto *micros = new int64_t(0); // ALL SUM
 
             for (int j = 0; j < samples; ++j) {
